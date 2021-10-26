@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Props, useState } from "react";
 import {
   Button,
   Alert,
@@ -8,98 +8,100 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-export default function SignUp({ navigation }: { navigation: any }) {
-  const [name, setName] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [nameError, setNameError] = React.useState(true);
-  const [emailError, setEmailError] = React.useState(true);
-  const [passwordError, setPasswordError] = React.useState(true);
-
-  const validateName = function () {
-    if (name.length > 3) {
-      setNameError(false);
-      return;
-    }
-    setNameError(true);
-    return;
+class SignUp extends React.Component {
+  state = {
+    name: "",
+    password: "",
+    email: "",
+    nameError: false,
+    emailError: false,
+    passwordError: false,
   };
 
-  const validateEmail = function () {
+  validateName() {
+    if (this.state.name.length > 3) {
+      this.setState({ nameError: false });
+      return;
+    }
+    this.setState({ nameError: true });
+    return;
+  }
+
+  validateEmail() {
     let regexp = new RegExp(
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
-    setEmailError(!regexp.test(email));
-  };
+    this.setState({ emailError: !regexp.test(this.state.email) });
+  }
 
-  const validatePassword = function () {
-    if (password.length > 6) {
-      setPasswordError(false);
+  validatePassword() {
+    if (this.state.password.length > 6) {
+      this.setState({ passwordError: false });
       return;
     }
-    setPasswordError(true);
+    this.setState({ passwordError: true });
     return;
-  };
+  }
 
-  const ALERT = (props: any) => {
+  render() {
     return (
-      <View>
-        {nameError ? <Text style={styles.header}>NAME HAS ERROR</Text> : null}
-        <Text style={styles.header}>Name : {props.name}</Text>
-
-        <Text style={styles.header}>Email : {props.email}</Text>
-
-        <Text style={styles.header}>Password :{props.password}</Text>
+      <View style={styles.SignUp}>
+        <Text style={styles.header}>Sign Up</Text>
+        <TextInput
+          onChangeText={(text) => {
+            this.validateName();
+            this.setState({ name: text });
+          }}
+          style={styles.textInput}
+          placeholder="Name"
+        ></TextInput>
+        {this.state.nameError ? (
+          <Text style={styles.error}>minimum length : 3</Text>
+        ) : null}
+        <TextInput
+          onChangeText={(text) => {
+            this.setState({ email: text });
+            this.validateEmail();
+          }}
+          style={styles.textInput}
+          placeholder="Email"
+        ></TextInput>
+        {this.state.emailError ? (
+          <Text style={styles.error}>Not a valid email</Text>
+        ) : null}
+        <TextInput
+          onChangeText={(text) => {
+            this.validatePassword();
+            this.setState({ password: text });
+          }}
+          secureTextEntry={true}
+          style={styles.textInput}
+          placeholder="Password"
+        ></TextInput>
+        {this.state.passwordError ? (
+          <Text style={styles.error}>Minimum length of Password is 6</Text>
+        ) : null}
+        <Button
+          title="Sign Up"
+          onPress={() => {
+            if (
+              !this.state.nameError &&
+              !this.state.emailError &&
+              !this.state.passwordError
+            ) {
+              //this.navigator.navigate("Profile");
+              //this.props.navigation.navigate("/path");
+              this.props.navigation.navigate("Home");
+              console.log("WOWOWOW");
+            }
+          }}
+        />
+        {/* {showResults ? (
+      <ALERT name={name} email={email} password={password} />
+    ) : null} */}
       </View>
     );
-  };
-
-  return (
-    <View style={styles.SignUp}>
-      <Text style={styles.header}>Sign Up</Text>
-      <TextInput
-        onChangeText={(text) => {
-          validateName();
-          setName(text);
-        }}
-        style={styles.textInput}
-        placeholder="Name"
-      ></TextInput>
-      {nameError ? <Text style={styles.error}>minimum length : 3</Text> : null}
-      <TextInput
-        onChangeText={(text) => {
-          setEmail(text);
-          validateEmail();
-        }}
-        style={styles.textInput}
-        placeholder="Email"
-      ></TextInput>
-      {emailError ? <Text style={styles.error}>Not a valid email</Text> : null}
-      <TextInput
-        onChangeText={(text) => {
-          validatePassword();
-          setPassword(text);
-        }}
-        secureTextEntry={true}
-        style={styles.textInput}
-        placeholder="Password"
-      ></TextInput>
-      {passwordError ? (
-        <Text style={styles.error}>Minimum length of Password is 6</Text>
-      ) : null}
-      <Button
-        title="Sign Up"
-        onPress={() => {
-          if (!nameError && !emailError && !passwordError) {
-            navigation.navigate("Home");
-          }
-        }}
-      />
-      {/* {showResults ? (
-        <ALERT name={name} email={email} password={password} />
-      ) : null} */}
-    </View>
-  );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -135,3 +137,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
 });
+
+export default SignUp;

@@ -17,6 +17,7 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="SignUp">
           <Drawer.Screen name="Register" component={SignUp} />
+
           <Drawer.Screen name="Home" component={Home} />
 
           <Drawer.Screen name="Profile" component={Profile} />
@@ -24,17 +25,6 @@ export default function App() {
           <Drawer.Screen name="Contact" component={Contact} />
         </Drawer.Navigator>
       </NavigationContainer>
-
-      {/* <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Profile" component={SignUp} />
-          <Stack.Screen name="Home" component={Home} />
-        </Stack.Navigator>
-      </NavigationContainer> */}
     </View>
   );
 }
