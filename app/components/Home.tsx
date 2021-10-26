@@ -8,12 +8,14 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-export default function SignUp() {
-  return (
-    <View style={styles.SignUp}>
-      <Text style={styles.header}> Home Page</Text>
-    </View>
-  );
+class Home extends React.Component {
+  render() {
+    return (
+      <View style={styles.SignUp}>
+        <Text style={styles.header}> Home Page</Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -49,3 +51,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
 });
+
+export default Home;

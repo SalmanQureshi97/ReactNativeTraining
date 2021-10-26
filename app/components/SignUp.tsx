@@ -13,9 +13,9 @@ class SignUp extends React.Component {
     name: "",
     password: "",
     email: "",
-    nameError: false,
-    emailError: false,
-    passwordError: false,
+    nameError: true,
+    emailError: true,
+    passwordError: true,
   };
 
   validateName() {
@@ -89,7 +89,7 @@ class SignUp extends React.Component {
               !this.state.emailError &&
               !this.state.passwordError
             ) {
-              //this.navigator.navigate("Profile");
+              //this.navigaator.navigate("Profile");
               //this.props.navigation.navigate("/path");
               this.props.navigation.navigate("Home");
               console.log("WOWOWOW");
