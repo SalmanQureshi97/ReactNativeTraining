@@ -12,52 +12,52 @@ import {
 } from "react-native";
 import { Card } from "react-native-elements";
 
-class Home extends React.Component {
+class AlbumDetails extends React.Component {
+  focusListener: any;
   state = {
     loading: true,
-    users: [],
+    itemId: this.props.route.params.itemId,
+    hasPosts: false,
     posts: [],
+    data: [],
   };
 
-  async getMovies() {
+  async getPostDetails() {
     try {
+      let itemId = this.state.itemId;
+      console.log(
+        `https://jsonplaceholder.typicode.com/albums/${itemId}/photos`
+      );
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
+        `https://jsonplaceholder.typicode.com/albums/${itemId}/photos`
       );
       const json = await response.json();
-      this.setState({ posts: json });
+      this.setState({ data: json });
     } catch (error) {
       console.log(error);
     } finally {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        const json = await response.json();
-        this.setState({ users: json });
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.setState({ loading: false });
-      }
+      this.setState({ loading: false });
     }
   }
 
-  getUserName(userId: any) {
-    let data = this.state.users;
-    let selectedUser: any;
-    data.forEach((obj) => {
-      if (obj.id === userId) {
-        selectedUser = obj.username;
-        return;
-      }
+  componentDidMount() {
+    this.focusListener = this.props.navigation.addListener("focus", () => {
+      this.setState({
+        loading: true,
+        itemId: this.props.route.params.itemId,
+        hasPosts: false,
+        posts: [],
+        data: [],
+      });
+      this.getPostDetails();
     });
-    return selectedUser;
   }
 
-  componentDidMount() {
-    this.getMovies();
-  }
+  //   componentWillUnmount() {
+  //     if (this.focusListener) {
+  //       this.focusListener.remove();
+  //     }
+  //   }
 
   render() {
     return (
@@ -66,17 +66,13 @@ class Home extends React.Component {
           <ActivityIndicator size="large" color="#00ff00" />
         ) : (
           <FlatList
-            data={this.state.posts}
+            data={this.state.data}
             keyExtractor={({ id }) => id}
             renderItem={({ item }) => (
               <Card>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Divider />
-                <Text style={{ marginBottom: 10 }}>{item.body}</Text>
-                <Card.Divider />
-                <Text style={{ marginBottom: 10 }}>
-                  Posted By : {this.getUserName(item.userId)}
-                </Text>
+                <Card.Image source={{ uri: item.thumbnailUrl }}></Card.Image>
                 {/* <Button
                   onPress={() => {
                     this.props.navigation.navigate("PostDetails", {
@@ -89,6 +85,13 @@ class Home extends React.Component {
               </Card>
             )}
           />
+          // <Card>
+          //   <Card.Title>{this.state.post.title}</Card.Title>
+          //   <Card.Divider />
+          //   <Text style={{ marginBottom: 10 }}>{this.state.post.body}</Text>
+          //   <Card.Divider />
+          //   <Text style={{ marginBottom: 10 }}>asdad</Text>
+          // </Card>
         )}
       </View>
     );
@@ -127,6 +130,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ff0000",
     borderBottomWidth: 1,
   },
+  logo: {
+    width: 66,
+    height: 58,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -144,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default AlbumDetails;

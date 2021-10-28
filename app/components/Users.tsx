@@ -11,48 +11,24 @@ import {
   FlatList,
 } from "react-native";
 import { Card } from "react-native-elements";
-
-class Home extends React.Component {
+class Users extends React.Component {
   state = {
     loading: true,
-    users: [],
     posts: [],
   };
 
   async getMovies() {
     try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
+        "https://jsonplaceholder.typicode.com/users"
       );
       const json = await response.json();
       this.setState({ posts: json });
     } catch (error) {
       console.log(error);
     } finally {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        const json = await response.json();
-        this.setState({ users: json });
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.setState({ loading: false });
-      }
+      this.setState({ loading: false });
     }
-  }
-
-  getUserName(userId: any) {
-    let data = this.state.users;
-    let selectedUser: any;
-    data.forEach((obj) => {
-      if (obj.id === userId) {
-        selectedUser = obj.username;
-        return;
-      }
-    });
-    return selectedUser;
   }
 
   componentDidMount() {
@@ -70,22 +46,21 @@ class Home extends React.Component {
             keyExtractor={({ id }) => id}
             renderItem={({ item }) => (
               <Card>
-                <Card.Title>{item.title}</Card.Title>
+                <Card.Title>{item.username}</Card.Title>
                 <Card.Divider />
-                <Text style={{ marginBottom: 10 }}>{item.body}</Text>
-                <Card.Divider />
-                <Text style={{ marginBottom: 10 }}>
-                  Posted By : {this.getUserName(item.userId)}
-                </Text>
-                {/* <Button
+                <Text style={{ marginBottom: 10 }}>{item.name}</Text>
+                <Text style={{ marginBottom: 10 }}>{item.email}</Text>
+                <Text style={{ marginBottom: 10 }}>{item.phone}</Text>
+                <Text style={{ marginBottom: 10 }}>{item.company.name}</Text>
+                <Button
                   onPress={() => {
                     this.props.navigation.navigate("PostDetails", {
                       itemId: item.id,
                     });
                   }}
                   style={styles.buttonStyle}
-                  title="VIEW NOW"
-                /> */}
+                  title="VIEW POSTS"
+                />
               </Card>
             )}
           />
@@ -144,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Users;

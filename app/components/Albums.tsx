@@ -11,21 +11,32 @@ import {
   FlatList,
 } from "react-native";
 import { Card } from "react-native-elements";
-
-class Home extends React.Component {
+class Albums extends React.Component {
   state = {
     loading: true,
+    albums: [],
     users: [],
-    posts: [],
   };
+
+  getUserName(userId: any) {
+    let data = this.state.users;
+    let selectedUser: any;
+    data.forEach((obj) => {
+      if (obj.id === userId) {
+        selectedUser = obj.username;
+        return;
+      }
+    });
+    return selectedUser;
+  }
 
   async getMovies() {
     try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
+        "https://jsonplaceholder.typicode.com/albums"
       );
       const json = await response.json();
-      this.setState({ posts: json });
+      this.setState({ albums: json });
     } catch (error) {
       console.log(error);
     } finally {
@@ -43,18 +54,6 @@ class Home extends React.Component {
     }
   }
 
-  getUserName(userId: any) {
-    let data = this.state.users;
-    let selectedUser: any;
-    data.forEach((obj) => {
-      if (obj.id === userId) {
-        selectedUser = obj.username;
-        return;
-      }
-    });
-    return selectedUser;
-  }
-
   componentDidMount() {
     this.getMovies();
   }
@@ -66,26 +65,24 @@ class Home extends React.Component {
           <ActivityIndicator size="large" color="#00ff00" />
         ) : (
           <FlatList
-            data={this.state.posts}
+            data={this.state.albums}
             keyExtractor={({ id }) => id}
             renderItem={({ item }) => (
               <Card>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Divider />
-                <Text style={{ marginBottom: 10 }}>{item.body}</Text>
-                <Card.Divider />
                 <Text style={{ marginBottom: 10 }}>
-                  Posted By : {this.getUserName(item.userId)}
+                  Created By : {this.getUserName(item.userId)}
                 </Text>
-                {/* <Button
+                <Button
                   onPress={() => {
-                    this.props.navigation.navigate("PostDetails", {
+                    this.props.navigation.navigate("AlbumDetails", {
                       itemId: item.id,
                     });
                   }}
                   style={styles.buttonStyle}
-                  title="VIEW NOW"
-                /> */}
+                  title="VIEW ALBUM"
+                />
               </Card>
             )}
           />
@@ -144,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Albums;

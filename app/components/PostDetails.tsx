@@ -11,21 +11,25 @@ import {
   FlatList,
 } from "react-native";
 import { Card } from "react-native-elements";
-
-class Home extends React.Component {
+class PostDetails extends React.Component {
+  focusListener: any;
   state = {
     loading: true,
-    users: [],
+    itemId: this.props.route.params.itemId,
+    hasPosts: false,
     posts: [],
+    data: [],
   };
 
-  async getMovies() {
+  async getPostDetails() {
     try {
+      let itemId = this.state.itemId;
+
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
+        `https://jsonplaceholder.typicode.com/posts/`
       );
       const json = await response.json();
-      this.setState({ posts: json });
+      this.setState({ data: json });
     } catch (error) {
       console.log(error);
     } finally {
@@ -39,8 +43,39 @@ class Home extends React.Component {
         console.log(error);
       } finally {
         this.setState({ loading: false });
+        this.getUserPosts();
       }
     }
+  }
+
+  componentDidMount() {
+    this.focusListener = this.props.navigation.addListener("focus", () => {
+      this.setState({
+        loading: true,
+        itemId: this.props.route.params.itemId,
+        hasPosts: false,
+        posts: [],
+        data: [],
+      });
+      this.getPostDetails();
+    });
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  getUserPosts() {
+    let data = this.state.data;
+    let userPosts = [];
+    data.forEach((obj) => {
+      if (obj.userId === this.state.itemId) {
+        userPosts.push(obj);
+        this.setState({ hasPosts: true });
+      }
+    });
+    this.setState({ posts: userPosts });
+    console.log(userPosts);
   }
 
   getUserName(userId: any) {
@@ -53,10 +88,6 @@ class Home extends React.Component {
       }
     });
     return selectedUser;
-  }
-
-  componentDidMount() {
-    this.getMovies();
   }
 
   render() {
@@ -89,6 +120,13 @@ class Home extends React.Component {
               </Card>
             )}
           />
+          // <Card>
+          //   <Card.Title>{this.state.post.title}</Card.Title>
+          //   <Card.Divider />
+          //   <Text style={{ marginBottom: 10 }}>{this.state.post.body}</Text>
+          //   <Card.Divider />
+          //   <Text style={{ marginBottom: 10 }}>asdad</Text>
+          // </Card>
         )}
       </View>
     );
@@ -144,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default PostDetails;

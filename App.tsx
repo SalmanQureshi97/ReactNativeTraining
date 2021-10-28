@@ -6,12 +6,14 @@ import Home from "./app/components/Home";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Profile from "./app/components/Profile";
-import Contact from "./app/components/Contact";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import Counter from "./app/components/Counter";
 import CounterDisplay from "./app/components/CounterDisplay";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
+import Albums from "./app/components/Albums";
+import AlbumDetails from "./app/components/AlbumDetails";
+import PostDetails from "./app/components/PostDetails";
+import Users from "./app/components/Users";
 
 const initialState = {
   counter: 0,
@@ -28,59 +30,60 @@ const reducer = (state = initialState, action: { type: any }) => {
 
 const store = createStore(reducer);
 
-class App extends React.Component {
-  Stack = createNativeStackNavigator();
-  Drawer = createDrawerNavigator();
-  render() {
-    return (
-      <View style={styles.container}>
-        <Provider store={store}>
-          <NavigationContainer>
-            <this.Drawer.Navigator initialRouteName="Counter">
-              <this.Drawer.Screen
-                options={{
-                  drawerItemStyle: { height: 0 },
-                }}
-                name="Register"
-                component={SignUp}
-              />
+function App() {
+  const Stack = createNativeStackNavigator();
+  const Drawer = createDrawerNavigator();
 
-              <this.Drawer.Screen name="Counter" component={Counter} />
+  return (
+    <View style={styles.container}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Drawer.Navigator initialRouteName="Counter">
+            <Drawer.Screen
+              options={{
+                drawerItemStyle: { height: 0 },
+                headerShown: false,
+              }}
+              name="Register"
+              component={SignUp}
+            />
 
-              <this.Drawer.Screen
-                name="CounterDisplay"
-                component={CounterDisplay}
-              />
+            <Drawer.Screen name="Posts" component={Home} />
+            <Drawer.Screen name="Albums" component={Albums} />
+            <Drawer.Screen
+              options={{
+                drawerItemStyle: { height: 0 },
+              }}
+              name="AlbumDetails"
+              component={AlbumDetails}
+            />
+            <Drawer.Screen
+              options={{
+                drawerItemStyle: { height: 0 },
+              }}
+              name="PostDetails"
+              component={PostDetails}
+            />
 
-              <this.Drawer.Screen
-                options={{
-                  drawerItemStyle: { height: 0 },
-                }}
-                name="Home"
-                component={Home}
-              />
+            <Drawer.Screen name="Users" component={Users} />
 
-              <this.Drawer.Screen
-                options={{
-                  drawerItemStyle: { height: 0 },
-                }}
-                name="Profile"
-                component={Profile}
-              />
-
-              <this.Drawer.Screen
-                options={{
-                  drawerItemStyle: { height: 0 },
-                }}
-                name="Contact"
-                component={Contact}
-              />
-            </this.Drawer.Navigator>
-          </NavigationContainer>
-        </Provider>
-      </View>
-    );
-  }
+            <Drawer.Screen name="Counter" component={Counter} />
+            <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </Provider>
+      {/* <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Profile" component={SignUp} />
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer> */}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
