@@ -38,15 +38,8 @@ function App() {
     <View style={styles.container}>
       <Provider store={store}>
         <NavigationContainer>
-          <Drawer.Navigator initialRouteName="Counter">
-            <Drawer.Screen
-              options={{
-                drawerItemStyle: { height: 0 },
-                headerShown: false,
-              }}
-              name="Register"
-              component={SignUp}
-            />
+          <Drawer.Navigator initialRouteName="SignUp">
+            <Drawer.Screen name="Register" component={SignUp} />
 
             <Drawer.Screen name="Posts" component={Home} />
             <Drawer.Screen name="Albums" component={Albums} />
