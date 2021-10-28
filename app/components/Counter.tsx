@@ -13,13 +13,7 @@ import { connect } from "react-redux";
 
 function Counter(props: {
   increaseCounter: () => void;
-  counter:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
+  counter;
   decreaseCounter: () => void;
 }) {
   return (

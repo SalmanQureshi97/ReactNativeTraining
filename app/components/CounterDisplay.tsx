@@ -11,17 +11,7 @@ import {
 
 import { connect } from "react-redux";
 
-function CounterDisplay(props: {
-  increaseCounter: () => void;
-  counter:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
-  decreaseCounter: () => void;
-}) {
+function CounterDisplay(props: { counter }) {
   return (
     <View style={styles.container}>
       <Text>{props.counter + 1}</Text>
