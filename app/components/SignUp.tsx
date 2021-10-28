@@ -84,6 +84,7 @@ class SignUp extends React.Component {
         <Button
           title="Sign Up"
           onPress={() => {
+            this.props.navigation.navigate("Counter");
             if (
               !this.state.nameError &&
               !this.state.emailError &&

@@ -8,25 +8,79 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from "./app/components/Profile";
 import Contact from "./app/components/Contact";
-export default function App() {
-  const Stack = createNativeStackNavigator();
-  const Drawer = createDrawerNavigator();
+import Counter from "./app/components/Counter";
+import CounterDisplay from "./app/components/CounterDisplay";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-  return (
-    <View style={styles.container}>
-      <NavigationContainer>
-        <Drawer.Navigator initialRouteName="SignUp">
-          <Drawer.Screen name="Register" component={SignUp} />
+const initialState = {
+  counter: 0,
+};
+const reducer = (state = initialState, action: { type: any }) => {
+  switch (action.type) {
+    case "INCREASE_COUNTER":
+      return { counter: state.counter + 1 };
+    case "DECREASE_COUNTER":
+      return { counter: state.counter - 1 };
+  }
+  return state;
+};
 
-          <Drawer.Screen name="Home" component={Home} />
+const store = createStore(reducer);
 
-          <Drawer.Screen name="Profile" component={Profile} />
+class App extends React.Component {
+  Stack = createNativeStackNavigator();
+  Drawer = createDrawerNavigator();
+  render() {
+    return (
+      <View style={styles.container}>
+        <Provider store={store}>
+          <NavigationContainer>
+            <this.Drawer.Navigator initialRouteName="Counter">
+              <this.Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="Register"
+                component={SignUp}
+              />
 
-          <Drawer.Screen name="Contact" component={Contact} />
-        </Drawer.Navigator>
-      </NavigationContainer>
-    </View>
-  );
+              <this.Drawer.Screen name="Counter" component={Counter} />
+
+              <this.Drawer.Screen
+                name="CounterDisplay"
+                component={CounterDisplay}
+              />
+
+              <this.Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="Home"
+                component={Home}
+              />
+
+              <this.Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="Profile"
+                component={Profile}
+              />
+
+              <this.Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="Contact"
+                component={Contact}
+              />
+            </this.Drawer.Navigator>
+          </NavigationContainer>
+        </Provider>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,3 +91,5 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+
+export default App;
