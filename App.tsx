@@ -2,16 +2,17 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SignUp from "./app/components/SignUp";
-import Home from "./app/components/Home";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Profile from "./app/components/Profile";
-import Contact from "./app/components/Contact";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import Counter from "./app/components/Counter";
 import CounterDisplay from "./app/components/CounterDisplay";
+import Users from "./app/components/Users";
+import PostDetails from "./app/components/PostDetails";
+import Albums from "./app/components/Albums";
+import AlbumDetails from "./app/components/AlbumDetails";
 const initialState = {
   counter: 0,
 };
@@ -35,7 +36,7 @@ function App() {
     <View style={styles.container}>
       <Provider store={store}>
         <NavigationContainer>
-          <Drawer.Navigator initialRouteName="Counter">
+          <Drawer.Navigator initialRouteName="SignUp">
             <Drawer.Screen
               options={{
                 drawerItemStyle: { height: 0 },
@@ -43,30 +44,24 @@ function App() {
               name="Register"
               component={SignUp}
             />
+            <Drawer.Screen name="Users" component={Users} />
             <Drawer.Screen
               options={{
                 drawerItemStyle: { height: 0 },
               }}
-              name="Home"
-              component={Home}
+              name="PostDetails"
+              component={PostDetails}
             />
+            <Drawer.Screen
+              options={{
+                drawerItemStyle: { height: 0 },
+              }}
+              name="AlbumDetails"
+              component={AlbumDetails}
+            />
+            <Drawer.Screen name="Albums" component={Albums} />
             <Drawer.Screen name="Counter" component={Counter} />
             <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
-            <Drawer.Screen
-              options={{
-                drawerItemStyle: { height: 0 },
-              }}
-              name="Profile"
-              component={Profile}
-            />
-
-            <Drawer.Screen
-              options={{
-                drawerItemStyle: { height: 0 },
-              }}
-              name="Contact"
-              component={Contact}
-            />
           </Drawer.Navigator>
         </NavigationContainer>
       </Provider>

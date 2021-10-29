@@ -90,6 +90,7 @@ export default function SignUp({ navigation }: { navigation: any }) {
       <Button
         title="Sign Up"
         onPress={() => {
+          navigation.navigate("Counter");
           if (!nameError && !emailError && !passwordError) {
             navigation.navigate("Home");
           }
