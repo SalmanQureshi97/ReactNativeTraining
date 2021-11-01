@@ -14,6 +14,8 @@ import Albums from "./app/components/Albums";
 import AlbumDetails from "./app/components/AlbumDetails";
 import PostDetails from "./app/components/PostDetails";
 import Users from "./app/components/Users";
+import Ajax from "./app/components/Ajax";
+import Axios from "./app/components/Axios";
 
 const initialState = {
   counter: 0,
@@ -62,6 +64,9 @@ function App() {
 
             <Drawer.Screen name="Counter" component={Counter} />
             <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
+
+            <Drawer.Screen name="Ajax" component={Ajax} />
+            <Drawer.Screen name="Axios" component={Axios} />
           </Drawer.Navigator>
         </NavigationContainer>
       </Provider>
