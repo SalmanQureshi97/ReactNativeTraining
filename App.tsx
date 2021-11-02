@@ -13,6 +13,7 @@ import Users from "./app/components/Users";
 import PostDetails from "./app/components/PostDetails";
 import Albums from "./app/components/Albums";
 import AlbumDetails from "./app/components/AlbumDetails";
+import Maps from "./app/components/Maps";
 const initialState = {
   counter: 0,
 };
@@ -59,6 +60,7 @@ function App() {
               name="AlbumDetails"
               component={AlbumDetails}
             />
+            <Drawer.Screen name="Maps" component={Maps} />
             <Drawer.Screen name="Albums" component={Albums} />
             <Drawer.Screen name="Counter" component={Counter} />
             <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />

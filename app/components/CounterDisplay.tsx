@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Alert,
@@ -8,9 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
 import { connect } from "react-redux";
-
 function CounterDisplay(props: { counter }) {
   return (
     <View style={styles.container}>
