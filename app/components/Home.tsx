@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { Component, useState } from "react";
+
 import {
   Button,
   Alert,
@@ -12,7 +14,7 @@ import {
 } from "react-native";
 import { Card } from "react-native-elements";
 
-class Home extends React.Component {
+class Home extends Component {
   state = {
     loading: true,
     users: [],

@@ -16,6 +16,7 @@ import PostDetails from "./app/components/PostDetails";
 import Users from "./app/components/Users";
 import Ajax from "./app/components/Ajax";
 import Axios from "./app/components/Axios";
+import Maps from "./app/components/Maps";
 
 const initialState = {
   counter: 0,
@@ -61,6 +62,8 @@ function App() {
             />
 
             <Drawer.Screen name="Users" component={Users} />
+
+            <Drawer.Screen name="Maps" component={Maps} />
 
             <Drawer.Screen name="Counter" component={Counter} />
             <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { Component, useState } from "react";
+import React from "react";
 import {
   Button,
   Alert,
@@ -11,7 +12,7 @@ import {
   FlatList,
 } from "react-native";
 import { Card } from "react-native-elements";
-class PostDetails extends React.Component {
+class PostDetails extends Component {
   focusListener: any;
   state = {
     loading: true,

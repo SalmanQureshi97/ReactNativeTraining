@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { Component, useState } from "react";
+import React from "react";
 import {
   Button,
   Alert,
@@ -11,7 +12,7 @@ import {
 
 import { connect } from "react-redux";
 
-class Counter extends React.Component {
+class Counter extends Component {
   render() {
     return (
       <View style={styles.container}>
