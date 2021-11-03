@@ -61,7 +61,7 @@ function App() {
         <AuthProvider>
           <NavigationContainer>
             <Drawer.Navigator
-              initialRouteName="SignUpFire"
+              initialRouteName="SignUpFireBase"
               drawerContent={(props) => {
                 return (
                   <DrawerContentScrollView {...props}>

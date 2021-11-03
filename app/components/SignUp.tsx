@@ -11,8 +11,6 @@ import {
 
 import auth from "@react-native-firebase/auth";
 
-import {} from "./providers/AuthProvider";
-
 class SignUp extends React.Component {
   async Component(email, pass) {
     try {
