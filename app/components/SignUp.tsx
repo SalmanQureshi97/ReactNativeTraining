@@ -8,6 +8,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
+import auth from "@react-native-firebase/auth";
 export default function SignUp({ navigation }: { navigation: any }) {
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -16,6 +18,23 @@ export default function SignUp({ navigation }: { navigation: any }) {
   const [emailError, setEmailError] = React.useState(true);
   const [passwordError, setPasswordError] = React.useState(true);
 
+  const Component = async function (email, pass) {
+    try {
+      await auth()
+        .createUserWithEmailAndPassword(email, pass)
+        .then(() => {
+          //Once the user creation has happened successfully, we can add the currentUser into firestore
+          //with the appropriate details.
+          console.log("ARARAYSDASD");
+        })
+        //we need to catch the whole sign up process if it fails too.
+        .catch((error) => {
+          console.log("Something went wrong with sign up: ", error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const validateName = function () {
     if (name.length > 3) {
       setNameError(false);
@@ -90,9 +109,8 @@ export default function SignUp({ navigation }: { navigation: any }) {
       <Button
         title="Sign Up"
         onPress={() => {
-          navigation.navigate("Counter");
           if (!nameError && !emailError && !passwordError) {
-            navigation.navigate("Home");
+            Component(email, password);
           }
         }}
       />
