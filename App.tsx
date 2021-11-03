@@ -1,11 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SignUp from "./app/components/SignUp";
 import Home from "./app/components/Home";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+
+import auth from "@react-native-firebase/auth";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import Counter from "./app/components/Counter";
@@ -17,6 +24,11 @@ import Users from "./app/components/Users";
 import Ajax from "./app/components/Ajax";
 import Axios from "./app/components/Axios";
 import Maps from "./app/components/Maps";
+import SignUpFireBase from "./app/components/SignUpFireBase";
+import {
+  AuthContext,
+  AuthProvider,
+} from "./app/components/providers/AuthProvider";
 
 const initialState = {
   counter: 0,
@@ -36,42 +48,72 @@ const store = createStore(reducer);
 function App() {
   const Stack = createNativeStackNavigator();
   const Drawer = createDrawerNavigator();
-
+  const logout = async function () {
+    try {
+      await auth().signOut();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <View style={styles.container}>
       <Provider store={store}>
-        <NavigationContainer>
-          <Drawer.Navigator initialRouteName="SignUp">
-            <Drawer.Screen name="Register" component={SignUp} />
-
-            <Drawer.Screen name="Posts" component={Home} />
-            <Drawer.Screen name="Albums" component={Albums} />
-            <Drawer.Screen
-              options={{
-                drawerItemStyle: { height: 0 },
+        <AuthProvider>
+          <NavigationContainer>
+            <Drawer.Navigator
+              initialRouteName="SignUpFire"
+              drawerContent={(props) => {
+                return (
+                  <DrawerContentScrollView {...props}>
+                    <DrawerItemList {...props} />
+                    <DrawerItem
+                      label="Logout"
+                      onPress={() => {
+                        logout();
+                      }}
+                    />
+                  </DrawerContentScrollView>
+                );
               }}
-              name="AlbumDetails"
-              component={AlbumDetails}
-            />
-            <Drawer.Screen
-              options={{
-                drawerItemStyle: { height: 0 },
-              }}
-              name="PostDetails"
-              component={PostDetails}
-            />
+            >
+              <Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="Register"
+                component={SignUp}
+              />
 
-            <Drawer.Screen name="Users" component={Users} />
+              <Drawer.Screen name="Posts" component={Home} />
+              <Drawer.Screen name="Albums" component={Albums} />
+              <Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="AlbumDetails"
+                component={AlbumDetails}
+              />
+              <Drawer.Screen
+                options={{
+                  drawerItemStyle: { height: 0 },
+                }}
+                name="PostDetails"
+                component={PostDetails}
+              />
 
-            <Drawer.Screen name="Maps" component={Maps} />
+              <Drawer.Screen name="Users" component={Users} />
 
-            <Drawer.Screen name="Counter" component={Counter} />
-            <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
+              <Drawer.Screen name="Maps" component={Maps} />
 
-            <Drawer.Screen name="Ajax" component={Ajax} />
-            <Drawer.Screen name="Axios" component={Axios} />
-          </Drawer.Navigator>
-        </NavigationContainer>
+              <Drawer.Screen name="Counter" component={Counter} />
+              <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
+
+              <Drawer.Screen name="Ajax" component={Ajax} />
+              <Drawer.Screen name="Axios" component={Axios} />
+              <Drawer.Screen name="SignUpFireBase" component={SignUpFireBase} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </AuthProvider>
       </Provider>
       {/* <NavigationContainer>
         <Stack.Navigator

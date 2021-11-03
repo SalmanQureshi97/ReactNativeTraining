@@ -1,4 +1,4 @@
-import React, { Props, useState } from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Alert,
@@ -8,7 +8,29 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
+import auth from "@react-native-firebase/auth";
+
+import {} from "./providers/AuthProvider";
+
 class SignUp extends React.Component {
+  async Component(email, pass) {
+    try {
+      await auth()
+        .createUserWithEmailAndPassword(email, pass)
+        .then(() => {
+          //Once the user creation has happened successfully, we can add the currentUser into firestore
+          //with the appropriate details.
+          console.log("ARARAYSDASD");
+        })
+        //we need to catch the whole sign up process if it fails too.
+        .catch((error) => {
+          console.log("Something went wrong with sign up: ", error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }
   state = {
     name: "",
     password: "",
@@ -84,7 +106,6 @@ class SignUp extends React.Component {
         <Button
           title="Sign Up"
           onPress={() => {
-            this.props.navigation.navigate("Counter");
             if (
               !this.state.nameError &&
               !this.state.emailError &&
@@ -92,7 +113,8 @@ class SignUp extends React.Component {
             ) {
               //this.navigaator.navigate("Profile");
               //this.props.navigation.navigate("/path");
-              this.props.navigation.navigate("Home");
+
+              this.Component(this.state.email, this.state.password);
               console.log("WOWOWOW");
             }
           }}
