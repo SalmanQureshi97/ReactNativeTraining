@@ -185,6 +185,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
+     compile project(':react-native-localization')
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     implementation 'com.google.firebase:firebase-analytics'

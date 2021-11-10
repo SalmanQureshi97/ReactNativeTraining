@@ -32,6 +32,7 @@ import {
   AuthProvider,
 } from "./app/components/providers/AuthProvider";
 import Camera from "./app/components/Camera";
+import Localization from "./app/components/Localization";
 
 const args = {
   number: "923335045554", // String value with the number to call
@@ -126,6 +127,7 @@ function App() {
               <Drawer.Screen name="Axios" component={Axios} />
               <Drawer.Screen name="SignUpFireBase" component={SignUpFireBase} />
               <Drawer.Screen name="Camera" component={Camera} />
+              <Drawer.Screen name="Localization" component={Localization} />
             </Drawer.Navigator>
           </NavigationContainer>
         </AuthProvider>
