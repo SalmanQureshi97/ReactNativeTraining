@@ -10,8 +10,10 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-const axios = require("axios");
+//const axios = require("axios");
+
 import { Card } from "react-native-elements";
+import axiosInstance from "./providers/Interceptors";
 class Axios extends React.Component {
   state = {
     loading: true,
@@ -33,7 +35,7 @@ class Axios extends React.Component {
 
   async getMovies() {
     let self = this;
-    await axios
+    await axiosInstance
       .get("https://jsonplaceholder.typicode.com/albums")
       .then((response) => {
         // handle success
@@ -47,7 +49,7 @@ class Axios extends React.Component {
       .then(async () => {
         // always executed
         try {
-          await axios
+          await axiosInstance
             .get("https://jsonplaceholder.typicode.com/users")
             .then((res) => {
               this.setState({ users: res.data });
