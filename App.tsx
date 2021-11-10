@@ -26,6 +26,7 @@ import SignUpFireBase from "./app/components/SignUpFirebase";
 
 import auth from "@react-native-firebase/auth";
 import Camera from "./app/components/Camera";
+import Localization from "./app/components/Localization";
 const initialState = {
   counter: 0,
 };
@@ -114,6 +115,8 @@ function App() {
               <Drawer.Screen name="SignUpFireBase" component={SignUpFireBase} />
 
               <Drawer.Screen name="Camera" component={Camera} />
+
+              <Drawer.Screen name="Localization" component={Localization} />
             </Drawer.Navigator>
           </NavigationContainer>
         </AuthProvider>

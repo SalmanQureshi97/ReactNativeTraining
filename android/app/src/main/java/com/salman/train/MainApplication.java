@@ -17,6 +17,7 @@ import expo.modules.ReactNativeHostWrapper;
 
 import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage; // <--- import
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -29,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
+
+    
 
     @Override
     protected List<ReactPackage> getPackages() {
