@@ -10,6 +10,8 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
+
+import { Linking } from "react-native";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import Counter from "./app/components/Counter";
@@ -27,6 +29,12 @@ import Camera from "./app/components/Camera";
 const initialState = {
   counter: 0,
 };
+
+const args = {
+  number: "923335045554", // String value with the number to call
+  prompt: false, // Optional boolean property. Determines if the user should be prompt prior to the call
+};
+
 const reducer = (state = initialState, action: { type: any }) => {
   switch (action.type) {
     case "INCREASE_COUNTER":
@@ -64,6 +72,12 @@ function App() {
                       label="Logout"
                       onPress={() => {
                         logout();
+                      }}
+                    />
+                    <DrawerItem
+                      label="Call Me"
+                      onPress={() => {
+                        Linking.openURL(`tel:${args.number}`);
                       }}
                     />
                   </DrawerContentScrollView>
