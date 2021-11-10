@@ -23,6 +23,7 @@ import { AuthProvider } from "./app/components/providers/AuthProvider";
 import SignUpFireBase from "./app/components/SignUpFirebase";
 
 import auth from "@react-native-firebase/auth";
+import Camera from "./app/components/Camera";
 const initialState = {
   counter: 0,
 };
@@ -97,6 +98,8 @@ function App() {
               <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
 
               <Drawer.Screen name="SignUpFireBase" component={SignUpFireBase} />
+
+              <Drawer.Screen name="Camera" component={Camera} />
             </Drawer.Navigator>
           </NavigationContainer>
         </AuthProvider>
