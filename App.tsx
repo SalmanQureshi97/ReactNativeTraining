@@ -29,6 +29,7 @@ import {
   AuthContext,
   AuthProvider,
 } from "./app/components/providers/AuthProvider";
+import Camera from "./app/components/Camera";
 
 const initialState = {
   counter: 0,
@@ -111,6 +112,7 @@ function App() {
               <Drawer.Screen name="Ajax" component={Ajax} />
               <Drawer.Screen name="Axios" component={Axios} />
               <Drawer.Screen name="SignUpFireBase" component={SignUpFireBase} />
+              <Drawer.Screen name="Camera" component={Camera} />
             </Drawer.Navigator>
           </NavigationContainer>
         </AuthProvider>
