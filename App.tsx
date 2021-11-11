@@ -28,6 +28,7 @@ import auth from "@react-native-firebase/auth";
 import Camera from "./app/components/Camera";
 import Localization from "./app/components/Localization";
 import Axios from "./app/components/Axios";
+import Storage from "./app/components/Storage";
 const initialState = {
   counter: 0,
 };
@@ -114,6 +115,7 @@ function App() {
               <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
 
               <Drawer.Screen name="SignUpFireBase" component={SignUpFireBase} />
+              <Drawer.Screen name="Storage" component={Storage} />
 
               <Drawer.Screen name="Camera" component={Camera} />
               <Drawer.Screen name="Axios" component={Axios} />
