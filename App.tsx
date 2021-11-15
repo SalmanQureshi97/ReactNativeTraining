@@ -34,6 +34,7 @@ import {
 import Camera from "./app/components/Camera";
 import Localization from "./app/components/Localization";
 import Storage from "./app/components/Storage";
+import Crud from "./app/components/Crud";
 
 const args = {
   number: "923335045554", // String value with the number to call
@@ -123,7 +124,7 @@ function App() {
 
               <Drawer.Screen name="Counter" component={Counter} />
               <Drawer.Screen name="CounterDisplay" component={CounterDisplay} />
-
+              <Drawer.Screen name="CRUD" component={Crud} />
               <Drawer.Screen name="Storage" component={Storage} />
               <Drawer.Screen name="Ajax" component={Ajax} />
               <Drawer.Screen name="Axios" component={Axios} />
